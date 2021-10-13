@@ -1,32 +1,34 @@
 import { MovieCard } from './MovieCard';
 
 import '../styles/content.scss';
+
+type Movie = {
+  imdbID: string;
+  Title: string;
+  Poster: string;
+  Ratings: Array<{
+    Source: string;
+    Value: string;
+  }>;
+  Runtime: string;
+}
 interface ContentProps {
   selectedGenre: {
     title: string;
   }
-  movies: {
-    imdbID: string;
-    Title: string;
-    Poster: string;
-    Ratings: Array<{
-      Source: string;
-      Value: string;
-    }>;
-    Runtime: string;
-  }[]
+  movies: Movie[],
 }
 
-export function Content(props: ContentProps) {
+export function Content({movies, selectedGenre}: ContentProps) {
   return (
     <div className="container">
       <header>
-        <span className="category">Categoria:<span> {props.selectedGenre.title}</span></span>
+        <span className="category">Categoria:<span>{selectedGenre.title}</span></span>
       </header>
 
       <main>
         <div className="movies-list">
-          {props.movies.map(movie => (
+          {movies.map(movie => (
             <MovieCard
               key ={movie.imdbID}
               title={movie.Title}
